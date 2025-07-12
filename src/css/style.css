@@ -254,6 +254,14 @@ button {
 }
 
 
+.remove-item {
+  margin-left: 10px;
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+}
+
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
