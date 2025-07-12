@@ -1,6 +1,6 @@
 // js/Alert.js
 export default class Alert {
-  constructor(jsonPath = "../json/alerts.json") {
+  constructor(jsonPath = "alerts.json") {
     this.path = jsonPath;
   }
 
