@@ -1,10 +1,4 @@
 import { getLocalStorage } from "./utils.mjs";
-// js/cart.js
-import { renderCart } from "./cart.mjs";
-
-// Render cart when the page loads
-renderCart();
-
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
