@@ -1,11 +1,11 @@
 export default class Alert {
-  constructor(jsonPath = "/json/alerts.json") {
+  constructor(jsonPath = "json/alerts.json") {
     this.path = jsonPath;
   }
 
   async showAlerts() {
     try {
-      const response = await fetch(this.path);  // This line works ONLY if alerts.json is PUBLIC
+      const response = await fetch(this.path);
       if (!response.ok) throw new Error("Failed to load alerts.");
       const alerts = await response.json();
 

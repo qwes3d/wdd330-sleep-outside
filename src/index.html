@@ -114,12 +114,16 @@
       &copy;2025 ⛺ SleepOutside ⛺ WDD 330 ⛺ BYU-Idaho for BYU-Pathway
       Worldwide Online
     </footer>
-    <script type="module">
-  import Alert from "/js/alert.js";
-  const alert = new Alert("/json/alerts.json");
- // path is relative to index.html
-  alert.showAlerts();
-</script>
+
+  <script type="module">
+    import Alert from "./js/Alert.js";
+    const alert = new Alert();
+    alert.showAlerts();
+  </script>
+</body>
+
+</body>
+
 
   </body>
 </html>
