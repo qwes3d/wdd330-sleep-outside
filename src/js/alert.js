@@ -1,12 +1,11 @@
-// js/Alert.js
 export default class Alert {
   constructor(jsonPath = "/json/alerts.json") {
-  this.path = jsonPath;
-}
+    this.path = jsonPath;
+  }
 
   async showAlerts() {
     try {
-      const response = await fetch(this.path);
+      const response = await fetch(this.path);  // This line works ONLY if alerts.json is PUBLIC
       if (!response.ok) throw new Error("Failed to load alerts.");
       const alerts = await response.json();
 
@@ -21,13 +20,10 @@ export default class Alert {
         p.style.backgroundColor = alert.background;
         p.style.color = alert.color;
 
-        // Dismiss button (just removes it from view, not from memory)
         const closeBtn = document.createElement("button");
         closeBtn.innerHTML = "&times;";
         closeBtn.classList.add("alert-dismiss");
-        closeBtn.onclick = () => {
-          p.remove(); // Only hides alert, does NOT store dismissal
-        };
+        closeBtn.onclick = () => p.remove();
 
         p.appendChild(closeBtn);
         section.appendChild(p);
@@ -37,9 +33,8 @@ export default class Alert {
       if (main) {
         main.prepend(section);
       }
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error("Alert load error:", err);
+    } catch (t) {
+      alert("Alert load error:", t.message || t);
     }
   }
 }
