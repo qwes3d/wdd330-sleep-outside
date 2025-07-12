@@ -38,6 +38,7 @@ export default class Alert {
         main.prepend(section);
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error("Alert load error:", err);
     }
   }
