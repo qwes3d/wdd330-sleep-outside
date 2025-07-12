@@ -13,8 +13,9 @@ function saveDismissedAlert(id) {
   }
 }
 
+
 export default class Alert {
-  constructor(jsonPath = "../json/alerts.json") {
+  constructor(jsonPath = "./json/alerts.json") {
     this.path = jsonPath;
   }
 
