@@ -8,8 +8,7 @@ export default class Alert {
       const response = await fetch(this.path);
       if (!response.ok) throw new Error("Failed to load alerts.");
       const alerts = await response.json();
-
-      if (alerts.length === 0) return;
+      if (!alerts.length || document.querySelector(".alert-list")) return;
 
       const section = document.createElement("section");
       section.classList.add("alert-list");
@@ -17,6 +16,7 @@ export default class Alert {
       alerts.forEach(alert => {
         const p = document.createElement("p");
         p.textContent = alert.message;
+        p.setAttribute("role", "alert");
         p.style.backgroundColor = alert.background;
         p.style.color = alert.color;
 
@@ -30,11 +30,13 @@ export default class Alert {
       });
 
       const main = document.querySelector("main");
-      if (main) {
-        main.prepend(section);
-      }
-    } catch (t) {
-      alert("Alert load error:", t.message || t);
+      if (main) main.prepend(section);
+    } catch (err) {
+      //      console.error("Alert load error:", err);
+            const fallback = document.createElement("p");
+            fallback.textContent = "There was a problem loading alerts.";
+      fallback.classList.add("alert-error");
+      document.querySelector("main")?.prepend(fallback);
     }
   }
 }
