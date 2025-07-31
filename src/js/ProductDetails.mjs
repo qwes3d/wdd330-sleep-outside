@@ -1,30 +1,45 @@
-import { setLocalStorage } from './utils.mjs';
+// ProductDetails.mjs
+import { setLocalStorage, qs } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
-    this.dataSource = dataSource;
     this.product = {};
+    this.dataSource = dataSource;
   }
 
   async init() {
-    this.product = await this.dataSource.findProductById(this.productId);
-    this.renderProductDetails();
-    document.getElementById('addToCart')
-      .addEventListener('click', this.addProductToCart.bind(this));
+    try {
+      this.product = await this.dataSource.findProductById(this.productId);
+
+      if (!this.product) {
+        throw new Error(`Product with ID "${this.productId}" not found.`);
+      }
+
+      this.renderProductDetails();
+
+      const addButton = qs("#addToCart");
+      if (addButton) {
+        addButton.addEventListener("click", this.addToCart.bind(this));
+      }
+    } catch (error) {
+      console.error("Error loading product details:", error);
+      qs(".product-detail__title").textContent = "Product Not Found";
+    }
   }
 
-  addProductToCart() {
-    setLocalStorage('so-cart', this.product);
+  addToCart() {
+    setLocalStorage("so-cart", this.product);
   }
 
   renderProductDetails() {
-    document.querySelector('.product-detail').innerHTML = `
-      <h2>${this.product.Name}</h2>
-      <img src="${this.product.Image}" alt="${this.product.Name}">
-      <p>${this.product.Description}</p>
-      <p>Price: $${this.product.FinalPrice}</p>
-      <button id="addToCart">Add to Cart</button>
-    `;
+    qs(".product-detail__title").textContent = this.product.Name;
+    const imageElement = qs(".product-detail__image img");
+    imageElement.src = this.product.Image;
+    imageElement.alt = this.product.Name;
+    qs(".product-detail__brand").textContent = this.product.Brand?.Name || "";
+    qs(".product-detail__color").textContent = this.product.Colors.map(c => c.ColorName).join(", ");
+    qs(".product-detail__description").innerHTML = this.product.DescriptionHtmlSimple;
+    qs(".product-detail__price").textContent = `$${this.product.FinalPrice}`;
   }
 }
