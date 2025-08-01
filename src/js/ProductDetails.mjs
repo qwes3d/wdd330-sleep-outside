@@ -1,5 +1,4 @@
-// ProductDetails.mjs
-import { setLocalStorage, qs } from "./utils.mjs";
+import { setLocalStorage, qs, getLocalStorage } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -18,10 +17,8 @@ export default class ProductDetails {
 
       this.renderProductDetails();
 
-      const addButton = qs("#addToCart");
-      if (addButton) {
-        addButton.addEventListener("click", this.addToCart.bind(this));
-      }
+      qs("#addToCart")?.addEventListener("click", this.addToCart.bind(this));
+      qs("#addToWishlist")?.addEventListener("click", this.addToWishlist.bind(this));
     } catch (error) {
       console.error("Error loading product details:", error);
       qs(".product-detail__title").textContent = "Product Not Found";
@@ -29,7 +26,22 @@ export default class ProductDetails {
   }
 
   addToCart() {
-    setLocalStorage("so-cart", this.product);
+    let cart = getLocalStorage("so-cart") || [];
+    const exists = cart.find(item => item.Id === this.product.Id);
+    if (!exists) cart.push(this.product);
+    setLocalStorage("so-cart", cart);
+  }
+
+  addToWishlist() {
+    let wishlist = getLocalStorage("so-wishlist") || [];
+    const exists = wishlist.find(item => item.Id === this.product.Id);
+    if (!exists) {
+      wishlist.push(this.product);
+      setLocalStorage("so-wishlist", wishlist);
+      alert("Added to wishlist!");
+    } else {
+      alert("Already in wishlist.");
+    }
   }
 
   renderProductDetails() {

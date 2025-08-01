@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Home</title>
-    <link rel="stylesheet" href="/css/style.css" />
   </head>
 
   <body>
@@ -41,6 +40,10 @@
           </svg>
         </a>
       </div>
+      <form id="search-form" action="/productlist.html" method="GET">
+    <input type="text" name="q" id="search-input" placeholder="Search products..." required />
+    <button type="submit">Search</button>
+  </form>
 
     </header>
     <main class="divider">
@@ -68,7 +71,7 @@
           <li class="product-card">
 
          
-            <a href="product_pages/index.html?product=880RR">Marmot Ajax 3</
+            <a href="product_pages/index.html?product=880RR">Marmot Ajax 3</a>
               <img
                 src="images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
                 alt="Marmot Ajax tent"
@@ -125,14 +128,18 @@
       Worldwide Online
     </footer>
 
-  <script type="module">
-    import Alert from "./js/Alert.js";
-    const alert = new Alert();
-    alert.showAlerts();
-  </script>
-</body>
-
-</body>
+    
+    >
+     <!-- JavaScript imports -->
+    <script type="module" src="./js/searchResult.js"></script>
+     <script type="module" src="./js/main.js"></script>
+     // src/js/main.mjs or main.js
+     <script type="module"> 
+    
+      import Alert from "./js/Alert.js";
+      const alert = new Alert();
+      alert.showAlerts();
+    </script>
 
 
   </body>

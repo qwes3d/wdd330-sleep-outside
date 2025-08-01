@@ -8,9 +8,9 @@
 
     <title>Sleep Outside | Cart</title>
 
-    <link rel="stylesheet" href="/css/style.css" />
-
+    
     <script src="../js/cart.js" type="module"></script>
+    <script src="../js/wishlist.js" type="module"></script>
   </head>
 
   <body>
@@ -58,7 +58,12 @@
       <section class="products">
         <h2>My Cart</h2>
 
+        <button onclick="moveToWishlist(0)">Move to Wishlist</button>
+        <button onclick="clearCart()">Clear Cart</button>
+        <button onclick="checkout()">Checkout</button>
+
         <ul class="product-list">
+
           <!-- <li class="cart-card divider">
             <a href="product_pages/marmot-ajax-3.html" class="cart-card__image">
               <img
@@ -94,5 +99,13 @@
     </main>
 
     <footer>&copy;NOT a real business</footer>
+ <script type="module">
+  import "../css/style.css";
+</script>
+</body>
+</html>
+
+
+  
   </body>
 </html>
